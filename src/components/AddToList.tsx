@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { IState as Props } from "../App";
+import React, {useState} from 'react'
+import {IState as Props} from "../App";
 
 interface IProps {
     setToys: React.Dispatch<React.SetStateAction<Props["toys"]>>
@@ -12,8 +12,8 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         classType: "",
         name: "",
         size: "",
-        producerId : "",
-        numberOfWheels : "",
+        producerId: "",
+        numberOfWheels: "",
         url: "",
         note: ""
     })
@@ -22,20 +22,20 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         setInput({
             ...input,
             [e.target.name]: e.target.value
-        })};
+        })
+    };
 
     async function handleClick() {
         if (!input.classType || !input.name || !input.size || !input.producerId) return;
         if (input.classType === 'Starship') {
-                input.url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjvPEyUsvNaS2v4b-enzSghJrShtTIoeOOXw&usqp=CAU'
-        }
-        else if (input.classType === 'Car') {
+            input.url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjvPEyUsvNaS2v4b-enzSghJrShtTIoeOOXw&usqp=CAU'
+        } else if (input.classType === 'Car') {
             input.url = 'https://www.kidsroom.de/WebRoot/KidsroomDE/Shops/Kidsroom/4CBE/0CAE/F074/6FA6/7A5F/4DEB/AE1B/D04D/BILD3_7022066.jpg'
         }
         try {
             const response = await fetch('http://localhost:8080/api/toys', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     classType: input.classType,
                     name: input.name,
@@ -67,18 +67,18 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         }
     }
 
-        /*setInput({
-            classType: "",
-            name: "",
-            size: "",
-            producerId : "",
-            numberOfWheels : "",
-            url: "",
-            note: ""
-        })
-    }
+    /*setInput({
+        classType: "",
+        name: "",
+        size: "",
+        producerId : "",
+        numberOfWheels : "",
+        url: "",
+        note: ""
+    })
+}
 
-         */
+     */
 
     return (
         <div className="AddToList">
