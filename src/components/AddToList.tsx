@@ -18,43 +18,56 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         note: ""
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setInput({
             ...input,
             [e.target.name]: e.target.value
-        })
+        })};
+
+    async function handleClick() {
+        if (!input.classType || !input.name || !input.size || !input.producerId) return;
+        if (input.classType === 'Starship') {
+                input.url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjvPEyUsvNaS2v4b-enzSghJrShtTIoeOOXw&usqp=CAU'
+        }
+        else if (input.classType === 'Car') {
+            input.url = 'https://www.kidsroom.de/WebRoot/KidsroomDE/Shops/Kidsroom/4CBE/0CAE/F074/6FA6/7A5F/4DEB/AE1B/D04D/BILD3_7022066.jpg'
+        }
+        try {
+            const response = await fetch('http://localhost:8080/api/toys', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    classType: input.classType,
+                    name: input.name,
+                    size: input.size,
+                    producerId: parseInt(input.producerId),
+                    numberOfWheels: parseInt(input.numberOfWheels),
+                }),
+            });
+            const responseText = await response.text();
+            if (response.ok) {
+                console.log(responseText)
+                setToys([
+                    ...toys,
+                    {
+                        classType: input.classType,
+                        name: input.name,
+                        size: input.size,
+                        producerId: parseInt(input.producerId),
+                        numberOfWheels: parseInt(input.numberOfWheels),
+                        url: input.url,
+                        note: input.note,
+                    },
+                ]);
+            } else {
+                throw new Error(responseText);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    const handleClick = () => {
-        if(!input.classType || !input.name || !input.size || !input.producerId) return
-        setToys([
-            ...toys,
-            {
-                classType: input.classType,
-                name: input.name,
-                size: input.size,
-                producerId: parseInt(input.producerId),
-                numberOfWheels: parseInt(input.numberOfWheels),
-                url: input.url,
-                note: input.note
-            }
-        ])
-        fetch("http://localhost:8080/api/toys",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({
-                classType: input.classType,
-                name: input.name,
-                size: input.size,
-                producerId: parseInt(input.producerId),
-                numberOfWheels: parseInt(input.numberOfWheels)
-            })
-
-        }).then(()=>{
-            console.log("New toy added")
-        });                                             //added without ; ??
-
-        setInput({
+        /*setInput({
             classType: "",
             name: "",
             size: "",
@@ -65,16 +78,20 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         })
     }
 
+         */
+
     return (
         <div className="AddToList">
-            <input
-                type="text"
+            <select
                 onChange={handleChange}
                 className="AddToList-input"
                 name="classType"
                 value={input.classType}
-                placeholder="Class type"
-            />
+            >
+                <option value="">Select a class type</option>
+                <option value="Car">Car</option>
+                <option value="Starship">Starship</option>
+            </select>
             <input
                 type="text"
                 onChange={handleChange}
@@ -83,38 +100,43 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 value={input.name}
                 placeholder="Name"
             />
-            <input
-                type="text"
+            <select
                 onChange={handleChange}
                 className="AddToList-input"
                 name="size"
                 value={input.size}
-                placeholder="Size"
-            />
-            <input
-                type="text"
+            >
+                <option value="">Select a size</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+                <option value="XXXL">XXXL</option>
+            </select>
+            <select
                 onChange={handleChange}
                 className="AddToList-input"
                 name="producerId"
                 value={input.producerId}
-                placeholder="Producer ID"
-            />
-            <input
-                type="text"
+            >
+                <option value="">Select a producer ID</option>
+                <option value="1">1</option>
+            </select>
+            <select
                 onChange={handleChange}
                 className="AddToList-input"
                 name="numberOfWheels"
                 value={input.numberOfWheels}
-                placeholder="Number of wheels"
-            />
-            <input
-                type="text"
-                onChange={handleChange}
-                className="AddToList-input"
-                name="url"
-                value={input.url}
-                placeholder="Image Url"
-            />
+            >
+                <option value="">Select the number of wheels</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+            </select>
             <textarea
                 onChange={handleChange}
                 className="AddToList-input"

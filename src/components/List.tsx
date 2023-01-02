@@ -15,10 +15,10 @@ const List: React.FC<IProps> = ({ toys }) => {
                         <h2>{toy.classType}</h2>
                     </div>
                     <p>{toy.name}</p>
-                    <p>{toy.size}</p>
+                    <p>Size: {toy.size}</p>
                     <p>Producer ID: {toy.producerId}</p>
                     <p>Wheels: {toy.numberOfWheels}</p>
-                    <p className="List-note">{toy.note}</p>
+                    <p className="List-note">Note: {toy.note}</p>
                 </li>
             )
         })
