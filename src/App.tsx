@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
+import logo from './logoAsThree.svg';
 import './App.css';
 import List from "./components/List";
 import AddToList from './components/AddToList';
@@ -12,13 +12,13 @@ export interface IState {
         producerId: number
         numberOfWheels?: number
         url: string
-        note?: string
+        uuid?: string
     }[]
 }
 
 function App(){
-
     document.title = 'EOS Toy Store'
+
 
     const [toys, setToys] = useState<IState["toys"]>([])
 
@@ -38,7 +38,8 @@ function App(){
 
     return (
         <div className="App">
-            <h1>.:EOS:. Toy Store</h1>
+            <img src={logo} alt="Logo" style={{ width: '350px', height: '180px' }} />
+            <h1>.: Toy Store :.</h1>
             <h2>Toys in the inventory</h2>
             <List toys={toys}/>
             <AddToList setToys={setToys} toys={toys}/>

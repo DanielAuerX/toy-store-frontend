@@ -14,13 +14,13 @@ const List: React.FC<IProps> = ({ toys }) => {
                         <img className="List-img" src={toy.url}/>
                         <h2>{toy.classType}</h2>
                     </div>
+                    <p className="List-note">ID: {toy.uuid}</p>
                     <p>{toy.name}</p>
-                    <p>Size: {toy.size}</p>
+                    <p>{toy.size}</p>
                     <p>Producer ID: {toy.producerId}</p>
                     <p>Wheels: {toy.numberOfWheels}</p>
-                    <p className="List-note">Note: {toy.note}</p>
                 </li>
-            )
+            )                                                   // <p className="List-note">Note: {toy.note}</p>
         })
     }
 
