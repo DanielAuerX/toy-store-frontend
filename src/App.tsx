@@ -17,7 +17,7 @@ export interface IState {
 }
 
 function App(){
-    document.title = 'EOS Toy Store'
+    document.title = 'äosTECH'
 
 
     const [toys, setToys] = useState<IState["toys"]>([])
@@ -39,7 +39,7 @@ function App(){
     return (
         <div className="App">
             <img src={logo} alt="Logo" style={{ width: '350px', height: '180px' }} />
-            <h1>Toy Store</h1>
+            <h1>.:Toy Store:.</h1>
             <h2>Toys in the inventory</h2>
             <List toys={toys}/>
             <AddToList setToys={setToys} toys={toys}/>
