@@ -108,6 +108,7 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 <option value="">Select a producer ID</option>
                 <option value="1">1</option>
             </select>
+            {input.classType === 'Car' &&
             <select
                 onChange={handleChange}
                 className="AddToList-input"
@@ -122,6 +123,7 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 <option value="6">6</option>
                 <option value="8">8</option>
             </select>
+            }
             <button
                 onClick={handleClick}
                 className="AddToList-btn"

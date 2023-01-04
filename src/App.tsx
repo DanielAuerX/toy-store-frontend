@@ -19,7 +19,6 @@ export interface IState {
 function App(){
     document.title = 'äosTECH'
 
-
     const [toys, setToys] = useState<IState["toys"]>([])
 
     useEffect(() => {
