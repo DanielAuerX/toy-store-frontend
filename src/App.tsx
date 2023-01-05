@@ -3,7 +3,7 @@ import logo from './logoAsThree.svg';
 import './App.css';
 import List from "./components/List";
 import AddToList from './components/AddToList';
-import { Route, Switch } from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import LoginForm from './login/LoginForm';
 
 export interface IState {
@@ -18,7 +18,7 @@ export interface IState {
     }[]
 }
 
-function App(){
+function App() {
     document.title = 'äosTECH'
 
     const [toys, setToys] = useState<IState["toys"]>([])
@@ -38,13 +38,34 @@ function App(){
     }, [])
 
     return (
-        <div className="App">
+        <Router>
+            <Switch>
+                <Route exact path="/login">
+                    <div className="Login">
+                        <img src={logo} alt="Logo" style={{width: '350px', height: '180px'}}/>
+                        <h1>.:Toy Store:.</h1>
+                        <LoginForm onSubmit={(username, password) => console.log(username, password)}/>
+                    </div>
+                </Route>
+                <Route exact path="/">
+                    <div className="App">
+                        <img src={logo} alt="Logo" style={{width: '350px', height: '180px'}}/>
+                        <h1>.:Toy Store:.</h1>
+                        <h2>Toys in the inventory</h2>
+                        <List toys={toys}/>
+                        <AddToList setToys={setToys} toys={toys}/>
+                    </div>
+                </Route>
+            </Switch>
+        </Router>
+        /*<div className="App">
             <img src={logo} alt="Logo" style={{width: '350px', height: '180px'}}/>
             <h1>.:Toy Store:.</h1>
             <h2>Toys in the inventory</h2>
             <List toys={toys}/>
             <AddToList setToys={setToys} toys={toys}/>
         </div>
+        */
     );
 
     /*return (
@@ -61,7 +82,7 @@ function App(){
             </Switch>
         </div>
     );
-     */
+    */
 }
 
 export default App;
