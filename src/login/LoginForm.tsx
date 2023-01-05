@@ -18,6 +18,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <label htmlFor="username"></label>
             <input
                 type="text"
+                className="AddToList-input"
                 onChange={event => setUsername(event.target.value)}
                 id="username"
                 value={username}
@@ -27,13 +28,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
             <label htmlFor="password"></label>
             <input
                 type="password"
+                className="AddToList-input"
                 onChange={event => setPassword(event.target.value)}
                 id="password"
                 value={password}
                 placeholder="Password"
             />
             <br />
-            <button type="submit">Log In</button>
+            <button
+                type="submit"
+                className="AddToList-btn"
+            >Log In
+            </button>
+
         </form>
     );
 };
