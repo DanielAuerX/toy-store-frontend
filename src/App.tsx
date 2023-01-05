@@ -3,6 +3,8 @@ import logo from './logoAsThree.svg';
 import './App.css';
 import List from "./components/List";
 import AddToList from './components/AddToList';
+import { Route, Switch } from "react-router-dom";
+import LoginForm from './login/LoginForm';
 
 export interface IState {
     toys: {
@@ -37,14 +39,29 @@ function App(){
 
     return (
         <div className="App">
-            <img src={logo} alt="Logo" style={{ width: '350px', height: '180px' }} />
+            <img src={logo} alt="Logo" style={{width: '350px', height: '180px'}}/>
             <h1>.:Toy Store:.</h1>
             <h2>Toys in the inventory</h2>
             <List toys={toys}/>
             <AddToList setToys={setToys} toys={toys}/>
         </div>
-
     );
+
+    /*return (
+        <div className="App">
+            <img src={logo} alt="Logo" style={{ width: '350px', height: '180px' }} />
+            <h1>.:Toy Store:.</h1>
+            <Switch>
+                <Route path="/login" component={LoginForm} />
+                <Route path="/">
+                    <h2>Toys in the inventory</h2>
+                    <List toys={toys} />
+                    <AddToList setToys={setToys} toys={toys} />
+                </Route>
+            </Switch>
+        </div>
+    );
+     */
 }
 
 export default App;

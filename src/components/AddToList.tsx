@@ -66,6 +66,36 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
         }
     }
 
+    const classTypeOptions = [
+        {value: '', label: 'Select a class type'},
+        {value: 'Car', label: 'Car'},
+        {value: 'Starship', label: 'Starship'},
+    ];
+
+    const sizeOptions = [
+        {value: '', label: 'Select a size'},
+        {value: 'XS', label: 'XS'},
+        {value: 'S', label: 'S'},
+        {value: 'M', label: 'M'},
+        {value: 'L', label: 'L'},
+        {value: 'XL', label: 'XL'},
+    ];
+
+    const producerIdOptions = [
+        {value: '', label: 'Select a producer ID'},
+        {value: '1', label: '1'},
+    ];
+
+    const numberOfWheelsOptions = [
+        {value: '', label: 'Select the number of wheels'},
+        {value: '1', label: '1'},
+        {value: '2', label: '2'},
+        {value: '3', label: '3'},
+        {value: '4', label: '4'},
+        {value: '6', label: '6'},
+        {value: '8', label: '8'},
+    ];
+
     return (
         <div className="AddToList">
             <select
@@ -74,9 +104,11 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 name="classType"
                 value={input.classType}
             >
-                <option value="">Select a class type</option>
-                <option value="Car">Car</option>
-                <option value="Starship">Starship</option>
+                {classTypeOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
             </select>
             <input
                 type="text"
@@ -92,12 +124,11 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 name="size"
                 value={input.size}
             >
-                <option value="">Select a size</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
+                {sizeOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
             </select>
             <select
                 onChange={handleChange}
@@ -105,25 +136,26 @@ const AddToList: React.FC<IProps> = ({setToys, toys}) => {
                 name="producerId"
                 value={input.producerId}
             >
-                <option value="">Select a producer ID</option>
-                <option value="1">1</option>
+                {producerIdOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
             </select>
-            {input.classType === 'Car' &&
-            <select
-                onChange={handleChange}
-                className="AddToList-input"
-                name="numberOfWheels"
-                value={input.numberOfWheels}
-            >
-                <option value="">Select the number of wheels</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-            </select>
-            }
+            {input.classType === 'Car' ? (
+                <select
+                    onChange={handleChange}
+                    className="AddToList-input"
+                    name="numberOfWheels"
+                    value={input.numberOfWheels}
+                >
+                    {numberOfWheelsOptions.map(option => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+                </select>
+            ) : null}
             <button
                 onClick={handleClick}
                 className="AddToList-btn"
